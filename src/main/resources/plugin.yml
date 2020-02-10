@@ -1,0 +1,14 @@
+main: me.benrobson.zanderhub.ZanderHubMain
+name: zander-hub
+version: 1.0
+author: Ben Robson
+api-version: 1.13
+
+commands:
+  fly:
+    description: Allows player to fly.
+    usage: /fly
+
+permissions:
+  zander.fly:
+    default: op
