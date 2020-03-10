@@ -14,14 +14,16 @@ public class fly implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
+        Player player = (Player) sender;
         if(!(sender instanceof Player)) {
             sender.sendMessage("You must be a player to use this command.");
             return true;
         }
 
         if (sender.hasPermission("zanderhub.fly")) {
-            Player player = (Player) sender;
             toggleUserFly(player);
+        }  else {
+            player.sendMessage(ChatColor.RED + "You must be a donator to use this feature.");
         }
         return true;
     }

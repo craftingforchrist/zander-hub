@@ -41,26 +41,32 @@ public class HubCompass implements Listener {
             return;
         }
 
-        ItemStack survival = new ItemStack(Material.IRON_PICKAXE);
-        ItemMeta survivalMeta = survival.getItemMeta();
-        survivalMeta.setDisplayName(ChatColor.WHITE + "Survival");
-        survivalMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to join our Survival server."));
-        survival.setItemMeta(survivalMeta);
-        compnav.setItem(13, survival);
+        if (player.hasPermission("bungeecord.servers.survival")) {
+            ItemStack survival = new ItemStack(Material.IRON_PICKAXE);
+            ItemMeta survivalMeta = survival.getItemMeta();
+            survivalMeta.setDisplayName(ChatColor.WHITE + "Survival");
+            survivalMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to join our Survival server."));
+            survival.setItemMeta(survivalMeta);
+            compnav.setItem(13, survival);
+        }
 
-        ItemStack events = new ItemStack(Material.BEACON);
-        ItemMeta eventsMeta = survival.getItemMeta();
-        eventsMeta.setDisplayName(ChatColor.DARK_PURPLE + "Events");
-        eventsMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to play our current Event!"));
-        events.setItemMeta(eventsMeta);
-        compnav.setItem(10, events);
+        if (player.hasPermission("bungeecord.servers.events")) {
+            ItemStack events = new ItemStack(Material.BEACON);
+            ItemMeta eventsMeta = events.getItemMeta();
+            eventsMeta.setDisplayName(ChatColor.DARK_PURPLE + "Events");
+            eventsMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to play our current Event!"));
+            events.setItemMeta(eventsMeta);
+            compnav.setItem(10, events);
+        }
 
-        ItemStack build = new ItemStack(Material.GRASS_BLOCK);
-        ItemMeta buildMeta = survival.getItemMeta();
-        buildMeta.setDisplayName(ChatColor.AQUA + "Build");
-        buildMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to join the Build Server."));
-        build.setItemMeta(buildMeta);
-        compnav.setItem(16, build);
+        if (player.hasPermission("bungeecord.servers.build")) {
+            ItemStack build = new ItemStack(Material.GRASS_BLOCK);
+            ItemMeta buildMeta = build.getItemMeta();
+            buildMeta.setDisplayName(ChatColor.AQUA + "Build");
+            buildMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to join the Build Server."));
+            build.setItemMeta(buildMeta);
+            compnav.setItem(16, build);
+        }
 
         ItemStack revelation = new ItemStack(Material.CRAFTING_TABLE);
         ItemMeta revelationMeta = revelation.getItemMeta();
