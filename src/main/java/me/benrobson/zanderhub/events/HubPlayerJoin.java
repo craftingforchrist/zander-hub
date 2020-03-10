@@ -2,8 +2,12 @@ package me.benrobson.zanderhub.events;
 
 import me.benrobson.zanderhub.ConfigurationManager;
 import me.benrobson.zanderhub.ZanderHubMain;
+import me.benrobson.zanderhub.items.navigationcompass;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Sound;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,7 +33,10 @@ public class HubPlayerJoin implements Listener {
             player.teleport(ConfigurationManager.getHubLocation());
         }
 
-        event.setJoinMessage(null); // disable join message
+        navigationcompass.givecompass(player); // Give player navigation compass
+        player.getInventory().setHeldItemSlot(4); // Set the players current slot to the navigation compass
+
+        event.setJoinMessage(null); // disable default join message
 
         // Dispatch MOTD to user
         List<String> motd = plugin.configurationManager.getmotd().getStringList("motd");
@@ -68,16 +75,16 @@ public class HubPlayerJoin implements Listener {
             event.getPlayer().sendMessage(" "); // Seperate between messages
         }
 
-        //player.setGameMode(GameMode.ADVENTURE); // Set users gamemode to Adventure
         player.playSound(player.getLocation(), Arrays.asList(Sound.values()).get((int) (Math.random() * (Sound.values().length - 1))), 1f,1f); // Play random sound
 
         // Disable player collision.
-//        LivingEntity livingentity = (LivingEntity) player;
         player.setCollidable(true);
 
         // If user has the fly permission, enable flight
         if (player.hasPermission("zanderhub.fly")) {
             player.setAllowFlight(true);
         }
+
+
     }
 }

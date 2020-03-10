@@ -1,4 +1,11 @@
 uniqueplayers: 1
+servers:
+  survival: true
+  events: true
+  development: true
+  build: true
+  rlcraft: true
+  revelation: true
 hub:
   world: world
   x: 0

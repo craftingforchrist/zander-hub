@@ -8,6 +8,9 @@ commands:
   fly:
     description: Allows player to fly.
     usage: /fly
+  connect:
+    description: Connect to a Server.
+    usage: /connect <server>
 
 permissions:
   zander.fly:

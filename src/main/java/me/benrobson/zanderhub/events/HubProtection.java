@@ -2,7 +2,6 @@ package me.benrobson.zanderhub.events;
 
 import me.benrobson.zanderhub.ZanderHubMain;
 import org.bukkit.GameMode;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -177,10 +176,6 @@ public class HubProtection implements Listener {
     // If user looses hunger, instantly reset hunger
     @EventHandler(priority = EventPriority.HIGH)
     public void losinghunger(FoodLevelChangeEvent event) {
-        Player player = (Player) event.getEntity();
-        if (player.getGameMode().equals(GameMode.ADVENTURE)) {
-            event.setCancelled(true);
-        }
-        player.setFoodLevel(20);
+        event.setCancelled(true);
     }
 }

@@ -3,13 +3,12 @@ motdBottomLineMessages:
   - "&eA Christian Minecraft Server"
   - "&eI feel God in this Minecraft Server tonight."
 motd:
+  - "&e Welcome to the Crafting For Christ Network!"
+newplayermotd:
   - "&e&l ========== Crafting For Christ ========== &r"
-  - "&e Welcome to the Crafting For Christ Network."
-  - " "
   - "&9&l Website:&r http://craftingforchrist.net"
   - "&9&l Fourms:&r https://forums.craftingforchrist.net"
   - "&9&l Discord:&r http://bit.ly/cfccord"
-newplayermotd:
-  - "&e&lLooks like you are new around these parts of town.."
-  - "Have fun, but not too much fun.."
+  -  " "
+  - "By joining the Crafting For Christ Network you agree to our Rules, TOS, and Privacy Policy."
   - "Make sure you read the rules. &cUse /rules to read the rules.&r"
