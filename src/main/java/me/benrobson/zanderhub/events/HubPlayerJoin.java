@@ -28,6 +28,8 @@ public class HubPlayerJoin implements Listener {
     public void HubPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        player.getInventory().clear();
+
         // Teleport Player to Hub spawn point
         if (ConfigurationManager.getHubLocation() != null) {
             player.teleport(ConfigurationManager.getHubLocation());
