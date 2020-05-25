@@ -38,13 +38,6 @@ public class HubPlayerJoin implements Listener {
 
         event.setJoinMessage(null); // disable default join message
 
-        // Dispatch MOTD to user
-        List<String> motd = plugin.configurationManager.getmotd().getStringList("motd");
-        for (String s : motd) {
-            event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', s));
-        }
-        event.getPlayer().sendMessage(" "); // Seperate between messages
-
         if (!player.hasPlayedBefore()) {
             // New user Joins for first time celebratory firework
             Firework firework = event.getPlayer().getWorld().spawn(event.getPlayer().getLocation(), Firework.class);
@@ -75,6 +68,14 @@ public class HubPlayerJoin implements Listener {
             event.getPlayer().sendMessage(" "); // Seperate between messages
         }
 
+        if (player.hasPlayedBefore()) {
+            // Dispatch MOTD to user
+            List<String> motd = plugin.configurationManager.getmotd().getStringList("motd");
+            for (String s : motd) {
+                event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', s));
+            }
+        }
+
         player.playSound(player.getLocation(), Arrays.asList(Sound.values()).get((int) (Math.random() * (Sound.values().length - 1))), 1f,1f); // Play random sound
 
         // Disable player collision.
@@ -84,7 +85,5 @@ public class HubPlayerJoin implements Listener {
         if (player.hasPermission("zanderhub.fly")) {
             player.setAllowFlight(true);
         }
-
-
     }
 }

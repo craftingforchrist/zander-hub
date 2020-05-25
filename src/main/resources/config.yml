@@ -1,15 +1,8 @@
 uniqueplayers: 1
-servers:
-  survival: true
-  events: true
-  development: true
-  build: true
-  rlcraft: true
-  revelation: true
 hub:
   world: world
-  x: 0
-  y: 100
-  z: 0
+  x: 0.5
+  y: 33
+  z: 0.5
   yaw: -180.0
   pitch: 0.0

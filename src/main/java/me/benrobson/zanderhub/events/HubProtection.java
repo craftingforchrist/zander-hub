@@ -2,6 +2,9 @@ package me.benrobson.zanderhub.events;
 
 import me.benrobson.zanderhub.ZanderHubMain;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -45,7 +48,7 @@ public class HubProtection implements Listener {
     // Cancel Block gravity
     @EventHandler(priority = EventPriority.HIGH)
     public void physics(final BlockPhysicsEvent event) {
-        event.setCancelled(true);
+        event.setCancelled(false);
     }
 
     // Block the weather from changing
@@ -70,8 +73,13 @@ public class HubProtection implements Listener {
     @EventHandler
     public void onMobSpawn(CreatureSpawnEvent event) {
         CreatureSpawnEvent.SpawnReason reason = event.getSpawnReason();
+
         if (reason == CreatureSpawnEvent.SpawnReason.CHUNK_GEN || reason == CreatureSpawnEvent.SpawnReason.DEFAULT || reason == CreatureSpawnEvent.SpawnReason.NATURAL || reason == CreatureSpawnEvent.SpawnReason.NETHER_PORTAL || reason == CreatureSpawnEvent.SpawnReason.DISPENSE_EGG || reason == CreatureSpawnEvent.SpawnReason.REINFORCEMENTS) {
-            event.setCancelled(true);
+            if (event.getEntity().getType().equals(EntityType.VILLAGER) || event.getEntity().getType().equals(EntityType.PILLAGER)) {
+                event.setCancelled(false);
+            } else {
+                event.setCancelled(true);
+            }
         }
     }
 
@@ -126,15 +134,35 @@ public class HubProtection implements Listener {
     // Block user from interacting or using any items
     @EventHandler(priority = EventPriority.HIGH)
     public void interactEntity(PlayerInteractEvent event) {
-        event.setCancelled(true);
-        event.setUseInteractedBlock(Event.Result.DENY);
-        event.setUseItemInHand(Event.Result.DENY);
+        Block clicked = event.getClickedBlock();
+
+        if (event.hasItem()) {
+            event.setCancelled(true);
+        }
+
+        // Allows access for Doors and Buttons to be used.
+        if (clicked.getType() == Material.DARK_OAK_DOOR || clicked.getType() == Material.DARK_OAK_BUTTON || clicked.getType() == Material.STONE_BUTTON) {
+            event.setCancelled(false);
+        } else {
+            event.setCancelled(true);
+            event.setUseInteractedBlock(Event.Result.DENY);
+            event.setUseItemInHand(Event.Result.DENY);
+        }
+
+        // Allows access for Pressure Plates to be used.
+        if (event.getAction().equals(Action.PHYSICAL)) {
+            if (event.getClickedBlock().getType() == Material.HEAVY_WEIGHTED_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.LIGHT_WEIGHTED_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.STONE_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.BIRCH_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.SPRUCE_PRESSURE_PLATE) {
+                event.setCancelled(false);
+            }
+        }
     }
 
     // Block user from interacting with entitys
     @EventHandler(priority = EventPriority.HIGH)
     public void interactEntity(PlayerInteractEntityEvent event) {
-        event.setCancelled(true);
+        if (!event.getPlayer().hasPermission("zanderhub.administrator")) {
+            event.setCancelled(true);
+        }
     }
 
     // Block users from picking up items

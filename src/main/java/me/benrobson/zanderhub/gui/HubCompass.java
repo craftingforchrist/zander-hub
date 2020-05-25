@@ -34,53 +34,40 @@ public class HubCompass implements Listener {
         }
     }
 
-    Inventory compnav = Bukkit.createInventory(null, 27, "Server Selector");
+    Inventory compnav = Bukkit.createInventory(null, 9, "Server Selector");
 
     public void CompassNavGUI(Player player) {
         if (player == null) {
             return;
         }
 
-        if (player.hasPermission("bungeecord.servers.survival")) {
-            ItemStack survival = new ItemStack(Material.IRON_PICKAXE);
-            ItemMeta survivalMeta = survival.getItemMeta();
-            survivalMeta.setDisplayName(ChatColor.WHITE + "Survival");
-            survivalMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to join our Survival server."));
-            survival.setItemMeta(survivalMeta);
-            compnav.setItem(13, survival);
-        }
+        ItemStack survival = new ItemStack(Material.IRON_PICKAXE);
+        ItemMeta survivalMeta = survival.getItemMeta();
+        survivalMeta.setDisplayName(ChatColor.WHITE + "Survival");
+        survivalMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to join our Survival server."));
+        survival.setItemMeta(survivalMeta);
+        compnav.setItem(4, survival);
 
-        if (player.hasPermission("bungeecord.servers.events")) {
-            ItemStack events = new ItemStack(Material.BEACON);
-            ItemMeta eventsMeta = events.getItemMeta();
-            eventsMeta.setDisplayName(ChatColor.DARK_PURPLE + "Events");
-            eventsMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to play our current Event!"));
-            events.setItemMeta(eventsMeta);
-            compnav.setItem(10, events);
-        }
-
-        if (player.hasPermission("bungeecord.servers.build")) {
-            ItemStack build = new ItemStack(Material.GRASS_BLOCK);
-            ItemMeta buildMeta = build.getItemMeta();
-            buildMeta.setDisplayName(ChatColor.AQUA + "Build");
-            buildMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to join the Build Server."));
-            build.setItemMeta(buildMeta);
-            compnav.setItem(16, build);
-        }
+        ItemStack events = new ItemStack(Material.BEACON);
+        ItemMeta eventsMeta = events.getItemMeta();
+        eventsMeta.setDisplayName(ChatColor.DARK_PURPLE + "Events");
+        eventsMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to play our current Event!"));
+        events.setItemMeta(eventsMeta);
+        compnav.setItem(7, events);
 
         ItemStack revelation = new ItemStack(Material.CRAFTING_TABLE);
         ItemMeta revelationMeta = revelation.getItemMeta();
         revelationMeta.setDisplayName(ChatColor.WHITE + "Revelation");
         revelationMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me for more information."));
         revelation.setItemMeta(revelationMeta);
-        compnav.setItem(20, revelation);
+        compnav.setItem(1, revelation);
 
-        ItemStack rlcraft = new ItemStack(Material.ENDER_EYE);
-        ItemMeta rlcraftMeta = rlcraft.getItemMeta();
-        rlcraftMeta.setDisplayName(ChatColor.RED + "RLCraft");
-        rlcraftMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me for more information."));
-        rlcraft.setItemMeta(rlcraftMeta);
-        compnav.setItem(24, rlcraft);
+//        ItemStack rlcraft = new ItemStack(Material.ENDER_EYE);
+//        ItemMeta rlcraftMeta = rlcraft.getItemMeta();
+//        rlcraftMeta.setDisplayName(ChatColor.RED + "RLCraft");
+//        rlcraftMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me for more information."));
+//        rlcraft.setItemMeta(rlcraftMeta);
+//        compnav.setItem(7, rlcraft);
 
         player.openInventory(compnav);
     }
@@ -104,36 +91,41 @@ public class HubCompass implements Listener {
             case IRON_PICKAXE:
                 player.closeInventory();
                 player.sendMessage(ChatColor.YELLOW + "Sending you to Survival..");
-                PluginMessageChannel.connect(player, "survival");
+                if (player.hasPermission("bungeecord.server.survival")) {
+                    PluginMessageChannel.connect(player, "survival");
+                } else  {
+                    player.sendMessage(ChatColor.RED + "You do not have access to this server.");
+                }
                 break;
 
             // Events
             case BEACON:
                 player.closeInventory();
                 player.sendMessage(ChatColor.YELLOW + "Sending you to Events..");
-                PluginMessageChannel.connect(player, "events");
-                break;
-
-            // Build
-            case GRASS_BLOCK:
-                player.closeInventory();
-                player.sendMessage(ChatColor.YELLOW + "Sending you to Build..");
-                PluginMessageChannel.connect(player, "build");
+                if (player.hasPermission("bungeecord.server.events")) {
+                    PluginMessageChannel.connect(player, "events");
+                } else {
+                    player.sendMessage(ChatColor.RED + "You do not have access to this server.");
+                }
                 break;
 
             // Revelation
             case CRAFTING_TABLE:
                 player.closeInventory();
-                player.sendMessage("\n");
-                player.sendMessage("Revelation is a Minecraft Snapshot Server.\nYou can not be connected to this Server via the Hub.\nPlease connect using " + ChatColor.YELLOW + ChatColor.BOLD + "revelation.craftingforchrist.net");
+                player.sendMessage("");
+                player.sendMessage("Revelation is a Minecraft snapshot based Survival Server. Mojang has been dropping Snapshots weekly and so this Server allows the community to have fun and explore The Nether Update. We update the Server hours after it's release.");
+                player.sendMessage("");
+                player.sendMessage("This is a whitelist based Server. Join our Discord " + ChatColor.BLUE + "(/discord) " + ChatColor.RESET + "and type !request revelation USERNAME to gain access.");
                 break;
 
             // RLCraft
-            case ENDER_EYE:
-                player.closeInventory();
-                player.sendMessage("\n");
-                player.sendMessage("RLCraft is a mod pack Server.\nYou can not be connected to this Server via the Hub. Please join our Discord (use " + ChatColor.BLUE + "/discord " + ChatColor.RESET + "to join) and type !request to access the RLCraft Server.");
-                break;
+//            case ENDER_EYE:
+//                player.closeInventory();
+//                player.sendMessage("");
+//                player.sendMessage("RLCraft is a Minecraft Modpack consisting of 120 separate mods that has been bundled and tweaked by Shivaxi to create a challenging Minecraft fantasy world.");
+//                player.sendMessage("This is a whitelist based Server. Join our Discord " + ChatColor.BLUE + "(/discord) " + ChatColor.RESET + " and type !request rlcraft USERNAME to gain access.");
+//                player.sendMessage("");
+//                break;
 
             default:
                 break;
