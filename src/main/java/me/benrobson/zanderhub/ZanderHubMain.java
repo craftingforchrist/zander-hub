@@ -28,6 +28,7 @@ public class ZanderHubMain extends JavaPlugin {
         PluginManager pluginmanager = this.getServer().getPluginManager();
         pluginmanager.registerEvents(new HubPlayerJoin(this), this);
         pluginmanager.registerEvents(new HubProtection(this), this);
+//        pluginmanager.registerEvents(new HubBooster(this), this);
 
         // Item Event Registry
         pluginmanager.registerEvents(new HubCompass(), this);
