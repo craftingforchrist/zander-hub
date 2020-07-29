@@ -2,6 +2,7 @@ package me.benrobson.zanderhub;
 
 import me.benrobson.zanderhub.commands.fly;
 import me.benrobson.zanderhub.events.HubPlayerJoin;
+import me.benrobson.zanderhub.events.HubPlayerVoid;
 import me.benrobson.zanderhub.events.HubProtection;
 import me.benrobson.zanderhub.events.PluginMessageChannel;
 import me.benrobson.zanderhub.gui.HubCompass;
@@ -22,12 +23,13 @@ public class ZanderHubMain extends JavaPlugin {
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PluginMessageChannel(this));
 
         // Init Message
-        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "\n\nZander Hub has been enabled.\nRunning Version " + plugin.getDescription().getVersion() + "\nGitHub Repository: https://github.com/benrobson/zander-hub\nCreated by Ben Robson\n\n");
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "\n\nZander Hub has been enabled.\nRunning Version " + plugin.getDescription().getVersion() + "\nGitHub Repository: https://github.com/crafting-for-christ/zander-hub\nCreated by Ben Robson\n\n");
 
         // Event Registry
         PluginManager pluginmanager = this.getServer().getPluginManager();
         pluginmanager.registerEvents(new HubPlayerJoin(this), this);
         pluginmanager.registerEvents(new HubProtection(this), this);
+        pluginmanager.registerEvents(new HubPlayerVoid(this), this);
 
         // Item Event Registry
         pluginmanager.registerEvents(new HubCompass(), this);
@@ -48,7 +50,7 @@ public class ZanderHubMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getServer().getConsoleSender().sendMessage(ChatColor.RED + "\n\nZander Hub has been disabled.\n");
+
         loadConfigurationManager();
     }
 }

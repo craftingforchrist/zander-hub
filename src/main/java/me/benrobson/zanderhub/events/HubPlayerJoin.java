@@ -61,24 +61,29 @@ public class HubPlayerJoin implements Listener {
             }
             event.getPlayer().sendMessage(" "); // Seperate between messages
 
+//        NOTE:: This has been removed due to message giving false unique player count.
+
             // Add +1 to the unique players in config.yml
-            final int unique = plugin.getConfig().getInt("uniqueplayers");
-            plugin.getConfig().set("uniqueplayers", unique + 1);
-            plugin.saveConfig();
+//            final int unique = plugin.getConfig().getInt("uniqueplayers");
+//            plugin.getConfig().set("uniqueplayers", unique + 1);
+//            plugin.saveConfig();
             // Broadcast new Unique player message to hub.
-            Bukkit.broadcastMessage(ChatColor.YELLOW + event.getPlayer().getDisplayName() + ChatColor.BLUE + " joined for the first time!" + ChatColor.GRAY + " (" + ChatColor.BLUE + unique + ChatColor.GRAY + ")");
-            event.getPlayer().sendMessage(" "); // Seperate between messages
+//            Bukkit.broadcastMessage(ChatColor.YELLOW + event.getPlayer().getDisplayName() + ChatColor.BLUE + " joined for the first time!" + ChatColor.GRAY + " (" + ChatColor.BLUE + unique + ChatColor.GRAY + ")");
+//            event.getPlayer().sendMessage(" "); // Seperate between messages
         }
 
-        if (player.hasPlayedBefore()) {
-            // Dispatch MOTD to user
-            List<String> motd = plugin.configurationManager.getmotd().getStringList("motd");
-            for (String s : motd) {
-                event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', s));
-            }
-        }
+//        NOTE:: This has been removed due to the MOTD having lack of purpose and content.
+
+//        if (player.hasPlayedBefore()) {
+//            // Dispatch MOTD to user
+//            List<String> motd = plugin.configurationManager.getmotd().getStringList("motd");
+//            for (String s : motd) {
+//                event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', s));
+//            }
+//        }
 
         player.playSound(player.getLocation(), Arrays.asList(Sound.values()).get((int) (Math.random() * (Sound.values().length - 1))), 1f,1f); // Play random sound
+        Bukkit.broadcastMessage(ChatColor.GRAY + event.getPlayer().getDisplayName() + " joined.");
 
         // Disable player collision.
         player.setCollidable(true);

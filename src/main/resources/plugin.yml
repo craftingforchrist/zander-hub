@@ -2,7 +2,7 @@ main: me.benrobson.zanderhub.ZanderHubMain
 name: zander-hub
 version: 1.0
 author: Ben Robson
-api-version: 1.13
+api-version: 1.16
 
 commands:
   fly:
@@ -16,4 +16,6 @@ permissions:
   zander.fly:
     default: op
   zanderhub.administrator:
+    default: op
+  zanderhub.build:
     default: op

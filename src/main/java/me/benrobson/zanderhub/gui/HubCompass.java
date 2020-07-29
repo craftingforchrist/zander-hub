@@ -48,12 +48,12 @@ public class HubCompass implements Listener {
         survival.setItemMeta(survivalMeta);
         compnav.setItem(4, survival);
 
-        ItemStack events = new ItemStack(Material.BEACON);
-        ItemMeta eventsMeta = events.getItemMeta();
-        eventsMeta.setDisplayName(ChatColor.DARK_PURPLE + "Events");
-        eventsMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me to play our current Event!"));
-        events.setItemMeta(eventsMeta);
-        compnav.setItem(7, events);
+        ItemStack mixed = new ItemStack(Material.IRON_SWORD);
+        ItemMeta mixedMeta = mixed.getItemMeta();
+        mixedMeta.setDisplayName(ChatColor.WHITE + "Mixed");
+        mixedMeta.setLore(Arrays.asList(ChatColor.WHITE + "Play and Destroy your friends in Minigames."));
+        mixed.setItemMeta(mixedMeta);
+        compnav.setItem(7, mixed);
 
         ItemStack revelation = new ItemStack(Material.CRAFTING_TABLE);
         ItemMeta revelationMeta = revelation.getItemMeta();
@@ -61,13 +61,6 @@ public class HubCompass implements Listener {
         revelationMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me for more information."));
         revelation.setItemMeta(revelationMeta);
         compnav.setItem(1, revelation);
-
-//        ItemStack rlcraft = new ItemStack(Material.ENDER_EYE);
-//        ItemMeta rlcraftMeta = rlcraft.getItemMeta();
-//        rlcraftMeta.setDisplayName(ChatColor.RED + "RLCraft");
-//        rlcraftMeta.setLore(Arrays.asList(ChatColor.WHITE + "Click me for more information."));
-//        rlcraft.setItemMeta(rlcraftMeta);
-//        compnav.setItem(7, rlcraft);
 
         player.openInventory(compnav);
     }
@@ -99,12 +92,12 @@ public class HubCompass implements Listener {
                 break;
 
             // Events
-            case BEACON:
+            case IRON_SWORD:
                 player.closeInventory();
-                player.sendMessage(ChatColor.YELLOW + "Sending you to Events..");
-                if (player.hasPermission("bungeecord.server.events")) {
-                    PluginMessageChannel.connect(player, "events");
-                } else {
+                player.sendMessage(ChatColor.YELLOW + "Sending you to Mixed..");
+                if (player.hasPermission("bungeecord.server.mixed")) {
+                    PluginMessageChannel.connect(player, "mixed");
+                } else  {
                     player.sendMessage(ChatColor.RED + "You do not have access to this server.");
                 }
                 break;
@@ -117,15 +110,6 @@ public class HubCompass implements Listener {
                 player.sendMessage("");
                 player.sendMessage("This is a whitelist based Server. Join our Discord " + ChatColor.BLUE + "(/discord) " + ChatColor.RESET + "and type !request revelation USERNAME to gain access.");
                 break;
-
-            // RLCraft
-//            case ENDER_EYE:
-//                player.closeInventory();
-//                player.sendMessage("");
-//                player.sendMessage("RLCraft is a Minecraft Modpack consisting of 120 separate mods that has been bundled and tweaked by Shivaxi to create a challenging Minecraft fantasy world.");
-//                player.sendMessage("This is a whitelist based Server. Join our Discord " + ChatColor.BLUE + "(/discord) " + ChatColor.RESET + " and type !request rlcraft USERNAME to gain access.");
-//                player.sendMessage("");
-//                break;
 
             default:
                 break;
