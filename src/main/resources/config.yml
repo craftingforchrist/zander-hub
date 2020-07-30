@@ -1,4 +1,5 @@
 uniqueplayers: 1
+velocitymultiplier: 2
 hub:
   world: world
   x: 0.5

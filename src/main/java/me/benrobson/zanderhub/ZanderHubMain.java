@@ -1,11 +1,11 @@
 package me.benrobson.zanderhub;
 
 import me.benrobson.zanderhub.commands.fly;
-import me.benrobson.zanderhub.events.HubPlayerJoin;
-import me.benrobson.zanderhub.events.HubPlayerVoid;
-import me.benrobson.zanderhub.events.HubProtection;
-import me.benrobson.zanderhub.events.PluginMessageChannel;
+import me.benrobson.zanderhub.events.*;
 import me.benrobson.zanderhub.gui.HubCompass;
+import me.benrobson.zanderhub.protection.HubCreatureSpawnProtection;
+import me.benrobson.zanderhub.protection.HubInteractProtection;
+import me.benrobson.zanderhub.protection.HubProtection;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,8 +28,12 @@ public class ZanderHubMain extends JavaPlugin {
         // Event Registry
         PluginManager pluginmanager = this.getServer().getPluginManager();
         pluginmanager.registerEvents(new HubPlayerJoin(this), this);
-        pluginmanager.registerEvents(new HubProtection(this), this);
         pluginmanager.registerEvents(new HubPlayerVoid(this), this);
+        pluginmanager.registerEvents(new HubBoosterPlate(this), this);
+            // Hub Protection
+            pluginmanager.registerEvents(new HubProtection(this), this);
+            pluginmanager.registerEvents(new HubInteractProtection(this), this);
+            pluginmanager.registerEvents(new HubCreatureSpawnProtection(this), this);
 
         // Item Event Registry
         pluginmanager.registerEvents(new HubCompass(), this);
