@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.metadata.MetadataValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -83,7 +84,10 @@ public class HubPlayerJoin implements Listener {
 //        }
 
         player.playSound(player.getLocation(), Arrays.asList(Sound.values()).get((int) (Math.random() * (Sound.values().length - 1))), 1f,1f); // Play random sound
-        Bukkit.broadcastMessage(ChatColor.GRAY + event.getPlayer().getDisplayName() + " joined.");
+
+        if (isVanished(player) == false) {
+            Bukkit.broadcastMessage(ChatColor.GRAY + event.getPlayer().getDisplayName() + " joined.");
+        }
 
         // Disable player collision.
         player.setCollidable(true);
@@ -92,5 +96,12 @@ public class HubPlayerJoin implements Listener {
         if (player.hasPermission("zanderhub.fly")) {
             player.setAllowFlight(true);
         }
+    }
+
+    private boolean isVanished(Player player) {
+        for (MetadataValue meta : player.getMetadata("vanished")) {
+            if (meta.asBoolean()) return true;
+        }
+        return false;
     }
 }
