@@ -105,10 +105,9 @@ public class HubCompass implements Listener {
             // Revelation
             case CRAFTING_TABLE:
                 player.closeInventory();
+                player.sendMessage("Revelation is a Minecraft snapshot-based Survival Server. The Mojang Team has been dropping Snapshots and this Server allows the community to have fun and explore The Caves and Cliffs Update. We update the Server hours after it's release.");
                 player.sendMessage("");
-                player.sendMessage("Revelation is a Minecraft snapshot based Survival Server. Mojang has been dropping Snapshots weekly and so this Server allows the community to have fun and explore The Nether Update. We update the Server hours after it's release.");
-                player.sendMessage("");
-                player.sendMessage("This is a whitelist based Server. Join our Discord " + ChatColor.BLUE + "(/discord) " + ChatColor.RESET + "and type !request revelation USERNAME to gain access.");
+                player.sendMessage("You can jump on by booting up the latest snapshot and connecting to " + ChatColor.YELLOW.toString() + ChatColor.BOLD + "revelation.craftingforchrist.net");
                 break;
 
             default:

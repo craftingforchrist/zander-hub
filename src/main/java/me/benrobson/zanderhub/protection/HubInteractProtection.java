@@ -21,30 +21,25 @@ public class HubInteractProtection implements Listener {
     public void interactEntity(PlayerInteractEvent event) {
         Block clicked = event.getClickedBlock();
 
+        // Used if the Hub needs to be edited by Senior Staff.
         if (event.getPlayer().hasPermission("zanderhub.build")) {
             event.setCancelled(false);
             return;
         }
 
-        if (!event.hasItem()) {
-            event.setCancelled(true);
+        // Allows access for Doors and Buttons to be used.
+        if (clicked.getType() == Material.DARK_OAK_DOOR || clicked.getType() == Material.DARK_OAK_BUTTON || clicked.getType() == Material.STONE_BUTTON) {
+            event.setCancelled(false);
         } else {
-            // Allows access for Doors and Buttons to be used.
-            if (clicked.getType() == Material.DARK_OAK_DOOR || clicked.getType() == Material.DARK_OAK_BUTTON || clicked.getType() == Material.STONE_BUTTON) {
-                event.setCancelled(false);
-                return;
-            } else {
-                event.setCancelled(true);
-                event.setUseInteractedBlock(Event.Result.DENY);
-                event.setUseItemInHand(Event.Result.DENY);
-            }
+            event.setCancelled(true);
+            event.setUseInteractedBlock(Event.Result.DENY);
+            event.setUseItemInHand(Event.Result.DENY);
+        }
 
-            // Allows access for Pressure Plates to be used.
-            if (event.getAction().equals(Action.PHYSICAL)) {
-                if (event.getClickedBlock().getType() == Material.HEAVY_WEIGHTED_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.LIGHT_WEIGHTED_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.STONE_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.BIRCH_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.SPRUCE_PRESSURE_PLATE) {
-                    event.setCancelled(false);
-                    return;
-                }
+        // Allows access for Pressure Plates to be used.
+        if (event.getAction().equals(Action.PHYSICAL)) {
+            if (event.getClickedBlock().getType() == Material.HEAVY_WEIGHTED_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.LIGHT_WEIGHTED_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.STONE_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.BIRCH_PRESSURE_PLATE || event.getClickedBlock().getType() == Material.SPRUCE_PRESSURE_PLATE) {
+                event.setCancelled(false);
             }
         }
     }
